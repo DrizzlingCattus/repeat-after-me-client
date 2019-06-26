@@ -3,3 +3,5 @@ node_modules/*
 webpack.config*
 *.log
 tags
+jasmine/*
+disposable/*
