@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
-import { ENV } from './env.js';
+import { ENV, ROUTE } from './env.js';
 import { Home } from './home.js';
 
 
@@ -45,8 +45,8 @@ class Login extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/repeat-after-me/login" component={LoginInner} />
-                    <Route exact path="/repeat-after-me/home" component={Home} />
+                    <Route exact path={`${ROUTE.LOGIN}`} component={LoginInner} />
+                    <Route exact path={`${ROUTE.HOME}`} component={Home} />
                 </Switch>
             </Router>
         );
@@ -112,7 +112,7 @@ class LoginInner extends React.Component {
 
     render() {
         if(auth.isAuthorized()) {
-            return <Redirect from="/repeat-after-me/login" to="/repeat-after-me/home" />
+            return <Redirect from={`${ROUTE.LOGIN}`} to={`${ROUTE.HOME}`} />
         }
 
         return (

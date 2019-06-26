@@ -16,8 +16,8 @@ class Make extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/repeat-after-me/make" component={MakeInner} />
-                    <Route exact path="/repeat-after-me/home" component={Home} />
+                    <Route exact path={`${ROUTE.MAKE}`} component={MakeInner} />
+                    <Route exact path={`${ROUTE.HOME}`} component={Home} />
                 </Switch>
             </Router>
         );
@@ -42,7 +42,7 @@ class MakeInner extends React.Component {
     render() {
         if(this.state.isClicked) {
             return (
-                <Redirect from="/repeat-after-me/make" to="/repeat-after-me/home" />
+                <Redirect from={`${ROUTE.MAKE}`} to={`${ROUTE.HOME}`} />
             );
         }
 
@@ -52,21 +52,21 @@ class MakeInner extends React.Component {
                     <div id="make-menu">
                         <ul>
                             <li>
-                                <Link to="/repeat-after-me/home" onClick={this.handleClick} > Home </Link>
+                                <Link to={`${ROUTE.HOME}`} onClick={this.handleClick} > Home </Link>
                             </li>
                             <li>
-                                <Link to={ROUTE.MAKE.SIMPLE}> Simple </Link>
+                                <Link to={`${ROUTE.MAKE.SIMPLE}`}> Simple </Link>
                             </li>
                             <li>
-                                <Link to={ROUTE.MAKE.COMPLEX}> Complex </Link>
+                                <Link to={`${ROUTE.MAKE.COMPLEX}`}> Complex </Link>
                             </li>
                         </ul>
                     </div>
 
                     <div>
                         <Switch>
-                            <Route exact path={ROUTE.MAKE.SIMPLE} component={Simple} />
-                            <Route exact path={ROUTE.MAKE.COMPLEX} component={Complex} />
+                            <Route exact path={`${ROUTE.MAKE.SIMPLE}`} component={Simple} />
+                            <Route exact path={`${ROUTE.MAKE.COMPLEX}`} component={Complex} />
                             <Route component={MakeDefault} />
                         </Switch>
                     </div>

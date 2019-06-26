@@ -84,10 +84,10 @@ class Simple extends React.Component {
         axios(options).then((res) => {
             if(res.data.status == "success") {
                 console.log("success to save simple quiz");
+                // refresh simple child view
                 this.initState({ 
                     message: "Save complete!"
                 });
-                this.props.history.push(ROUTE.MAKE.SIMPLE);
             }else {
                 console.log("fail to save simple quiz");
                 this.initState({ 
@@ -163,7 +163,6 @@ class Simple extends React.Component {
         });
     }
 
-    // Data, Quiz, Answer, Hint 각각 컴포넌트로 분리해야함
     render() {
         return (
             <Router>

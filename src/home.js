@@ -30,7 +30,6 @@ class HomeInner extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 <ul>
