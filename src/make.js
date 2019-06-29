@@ -6,6 +6,8 @@ import { Simple } from './simple.js';
 import { Complex } from './complex.js';
 import { Home } from './home.js';
 
+import './style/make.css';
+
 
 class Make extends React.Component {
     constructor(props) {
@@ -28,19 +30,19 @@ class MakeInner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isClicked: false
+            isGotoHome: false
         };
-        this.handleClick = this.handleClick.bind(this);
+        this.goToHome = this.goToHome.bind(this);
     }
 
-    handleClick() {
+    goToHome() {
         this.setState({
-            isClicked: true
+            isGotoHome: true
         });
     }
 
     render() {
-        if(this.state.isClicked) {
+        if(this.state.isGotoHome) {
             return (
                 <Redirect from={`${ROUTE.MAKE}`} to={`${ROUTE.HOME}`} />
             );
@@ -50,19 +52,20 @@ class MakeInner extends React.Component {
             <Router>
                 <div>
                     <div id="make-menu">
-                        <ul>
-                            <li>
-                                <Link to={`${ROUTE.HOME}`} onClick={this.handleClick} > Home </Link>
-                            </li>
-                            <li>
-                                <Link to={`${ROUTE.MAKE.SIMPLE}`}> Simple </Link>
-                            </li>
-                            <li>
-                                <Link to={`${ROUTE.MAKE.COMPLEX}`}> Complex </Link>
-                            </li>
-                        </ul>
+                        <div className="tab-menu">
+                            <div className="tab-menu-item">
+                                <Link to={`${ROUTE.HOME}`} onClick={this.goToHome} > Home </Link>
+                            </div>
+                            <MenuItem 
+                                to={`${ROUTE.MAKE.SIMPLE}`}
+                                name="Simple"
+                            />
+                            <MenuItem 
+                                to={`${ROUTE.MAKE.COMPLEX}`} 
+                                name="Complex"
+                            />
+                        </div>
                     </div>
-
                     <div>
                         <Switch>
                             <Route exact path={`${ROUTE.MAKE.SIMPLE}`} component={Simple} />
@@ -74,6 +77,17 @@ class MakeInner extends React.Component {
             </Router>
         );
     }
+}
+
+function MenuItem(props) {
+    return (
+        <div className="tab-menu-item">
+            <Link 
+                to={props.to}>
+                {props.name}
+            </Link>
+        </div>
+    );
 }
 
 function MakeDefault(props) {

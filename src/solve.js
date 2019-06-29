@@ -6,6 +6,8 @@ import { ENV, ROUTE } from './env.js';
 import { Home } from './home.js';
 import { SolveQuiz } from './solveQuiz.js';
 
+import './style/solve.css';
+
 
 const QUIZ_TYPE = {
     SIMPLE: "simple",
@@ -140,7 +142,7 @@ class SolveInner extends React.Component {
         }
 
         return(
-            <div>
+            <div className="container-full-width">
                 <SolveStatus />
                 <QuizFilter 
                     startDate={this.state.startDate}

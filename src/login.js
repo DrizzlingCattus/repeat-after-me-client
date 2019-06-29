@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 
 import { ENV, ROUTE } from './env.js';
 import { Home } from './home.js';
+import './style/login.css';
 
 
 const auth = ( () => {
@@ -57,7 +58,7 @@ class LoginInner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginMessage: 'Login',
+            loginMessage: '',
             userId: '',
             userPassword: '',
             token: ''
@@ -116,24 +117,28 @@ class LoginInner extends React.Component {
         }
 
         return (
-            <div>
-                <div>
-                    <p> {this.state.loginMessage} </p>
+            <div className="fullscreen-container">
+                <div className="abs-center-container">
+                    <div>
+                        <p> Login </p>
+                    </div>
+                    <div>
+                        <p> {this.state.loginMessage} </p>
+                    </div>
+                    <form id="login-form" onSubmit={this.handleSubmit}>
+                        <div>
+                            <label> Enter the id: </label>
+                            <input type="text" value={this.state.userId} onChange={this.handleIdChange} required />
+                        </div>
+                        <div>
+                            <label> Enter the password: </label>
+                            <input type="password" value={this.state.userPassword} onChange={this.handlePasswordChange} required />
+                        </div>
+                        <div>
+                            <input type="submit" value="login" />
+                        </div>
+                    </form>
                 </div>
-
-                <form id="login-form" onSubmit={this.handleSubmit}>
-                    <div>
-                        <label> Enter the id: </label>
-                        <input type="text" value={this.state.userId} onChange={this.handleIdChange} required />
-                    </div>
-                    <div>
-                        <label> Enter the password: </label>
-                        <input type="text" value={this.state.userPassword} onChange={this.handlePasswordChange} required />
-                    </div>
-                    <div>
-                        <input type="submit" value="login" />
-                    </div>
-                </form>
             </div>
         );
     }

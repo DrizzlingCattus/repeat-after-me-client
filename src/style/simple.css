@@ -1,0 +1,37 @@
+@import url('./main.css');
+
+
+.container-full-width {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.simple-container {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.form-item-container {
+}
+
+.form-item-input-title {
+    width: 120px;
+}
+
+.form-item-input {
+}
+
+.form-item-input textarea {
+    resize: none;
+    width: 80%;
+    height: 150px;
+}
+
+.hint-item-container {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.hint-item-write-box {
+}

@@ -80,6 +80,7 @@ ROUTE.attach('SOLVE', '/solve');
 
 ROUTE.attach('SOLVE_QUIZ', '/solve_quiz');
 
+ROUTE.attach('TEST', '/test');
 
 export { 
     ENV, 

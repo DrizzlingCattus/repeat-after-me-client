@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-ro
 import { ENV, ROUTE } from './env.js';
 import { Solve } from './solve.js';
 
+import "./style/solveQuiz.css";
+
+
 class SolveQuiz extends React.Component {
     constructor(props) {
         super(props);
@@ -89,21 +92,18 @@ class SolveQuizInner extends React.Component {
             return <EndSolveQuiz />
         }
         return (
-            <div>
-                <div>
-                    <QuizDescription description={this.state.currQuiz.description} />
-                </div>
-                <div>
-                    <QuizHints hints={this.state.currQuiz.hints} isVisable={this.state.isShowHints} />
-                </div>
-                <div>
-                    <QuizAnswer answer={this.state.currQuiz.answer} isVisable={this.state.isShowAnswer} />
-                </div>
-                <div>
-                    <ShowHints showHintHandler={this.handleHints} isClicked={this.state.isShowHints} />
-                    <ShowAnswer showAnswerHandler={this.handleAnswer} isClicked={this.state.isShowAnswer} />
-                    <NextQuiz nextQuizHandler={this.handleNext} />
-                </div>
+            <div className="container-full-width">
+                <table>
+                    <tbody>
+                        <QuizDescription description={this.state.currQuiz.description} />
+                        <QuizHints hints={this.state.currQuiz.hints} isVisable={this.state.isShowHints} />
+                        <QuizAnswer answer={this.state.currQuiz.answer} isVisable={this.state.isShowAnswer} />
+                    </tbody>
+                </table>
+
+                <ShowHints showHintHandler={this.handleHints} isClicked={this.state.isShowHints} />
+                <ShowAnswer showAnswerHandler={this.handleAnswer} isClicked={this.state.isShowAnswer} />
+                <NextQuiz nextQuizHandler={this.handleNext} />
             </div>
         );
     }
@@ -148,10 +148,16 @@ class QuizDescription extends React.Component {
 
     render() {
         return (
-            <div>
-                <p> Quiz </p>
-                <p> {this.props.description} </p>
-            </div>
+            <tr>
+                <td className="solving-item-title"> Quiz </td>
+                <td className="solving-item-content"> 
+                    <textarea 
+                        row="5"
+                        cols="130"
+                        value={this.props.description}
+                        readOnly={true} />
+                </td>
+            </tr>
         );
     }
 }
@@ -164,20 +170,20 @@ class QuizHints extends React.Component {
     render() {
         if(!this.props.isVisable) {
             return (
-                <div>
-                    <p> Hints </p>
-                    ...
-                </div>
+                <tr>
+                    <td className="solving-item-title"> Hints </td>
+                    <td> ... </td>
+                </tr>
             );
         }
         const hintString = this.props.hints.length === 0 ? 'no hint' : this.props.hints.reduce((result, curr) => {
             return `${result}, ${curr}`;
         });
         return (
-            <div>
-                <p> Hints </p>
-                <p> {hintString} </p>
-            </div>
+            <tr>
+                <td className="solving-item-title"> Hints </td>
+                <td> {hintString} </td>
+            </tr>
         );
     }
 }
@@ -190,17 +196,23 @@ class QuizAnswer extends React.Component {
     render() {
         if(!this.props.isVisable) {
             return (
-                <div>
-                    <p> Answer </p>
-                    ...
-                </div>
+                <tr>
+                    <td className="solving-item-title"> Answer </td>
+                    <td> ... </td>
+                </tr>
             );
         }
         return (
-            <div>
-                <p> Answer </p>
-                <p> {this.props.answer} </p>
-            </div>
+            <tr>
+                <td className="solving-item-title"> Answer </td>
+                <td className="solving-item-content"> 
+                    <textarea 
+                        rows="5"
+                        cols="130"
+                        value={this.props.answer}
+                        readOnly={true} />
+                </td>
+            </tr>
         );
     }
 }
@@ -208,11 +220,29 @@ class QuizAnswer extends React.Component {
 class ShowHints extends React.Component {
     constructor(props) {
         super(props);
+        this.handleJKeyDown = this.handleJKeyDown.bind(this);
+    }
+
+    handleJKeyDown(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const JKeycode = 74;
+        if(JKeycode === e.keyCode) {
+            this.props.showHintHandler();
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', this.handleJKeyDown);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleJKeyDown);
     }
 
     render() {
         return (
-            <div>
+            <div className="solving-item-button-container">
                 <button 
                     type="button" 
                     autoComplete="off"
@@ -228,11 +258,29 @@ class ShowHints extends React.Component {
 class ShowAnswer extends React.Component {
     constructor(props) {
         super(props);
+        this.handleKKeyDown = this.handleKKeyDown.bind(this);
+    }
+
+    handleKKeyDown(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const KKeycode = 75;
+        if(KKeycode === e.keyCode) {
+            this.props.showAnswerHandler();
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', this.handleKKeyDown);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleKKeyDown);
     }
 
     render() {
         return (
-            <div>
+            <div className="solving-item-button-container">
                 <button
                     type="button"
                     autoComplete="off"
@@ -248,11 +296,29 @@ class ShowAnswer extends React.Component {
 class NextQuiz extends React.Component {
     constructor(props) {
         super(props);
+        this.handleLKeyDown = this.handleLKeyDown.bind(this);
+    }
+
+    handleLKeyDown(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const LKeycode = 76;
+        if(LKeycode === e.keyCode) {
+            this.props.nextQuizHandler();
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', this.handleLKeyDown);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleLKeyDown);
     }
 
     render() {
         return (
-            <div>
+            <div className="solving-item-button-container">
                 <button
                     type="button"
                     onClick={this.props.nextQuizHandler}>

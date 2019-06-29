@@ -1,0 +1,18 @@
+@import url('./main.css');
+
+
+.solving-item-title {
+    width: 120px;
+}
+
+.solving-item-content textarea {
+    resize: none;
+    width: 80%;
+    height: 150px;
+}
+
+.solving-item-button-container {
+    display: inline-block;
+}
+
+

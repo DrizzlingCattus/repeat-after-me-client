@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { ENV, ROUTE } from './env.js';
 
+import './style/simple.css';
+
 
 const localM = {};
 
@@ -166,23 +168,19 @@ class Simple extends React.Component {
     render() {
         return (
             <Router>
-                <div>
+                <div className="container-full-width simple-container">
                     <div>
                         <p> {this.state.message} </p>
                     </div>
                     <form id="simple-form" onSubmit={this.handleSubmit}>
-                        <div>
-                            <DateView value={this.state.date} handler={this.handleDateChange} />
-                        </div>
-                        <div>
-                            <Quiz value={this.state.quiz} handler={this.handleQuizChange} />
-                        </div>
-                        <div>
-                            <Answer value={this.state.answer} handler={this.handleAnswerChange} />
-                        </div>
-                        <div>
-                            <Hint hintItems={this.state.hintItems} addHandler={this.handleToAddHintItem} />
-                        </div>
+                        <table className="container-full-width">
+                            <tbody>
+                                <DateView value={this.state.date} handler={this.handleDateChange} />
+                                <Quiz value={this.state.quiz} handler={this.handleQuizChange} />
+                                <Answer value={this.state.answer} handler={this.handleAnswerChange} />
+                                <Hint hintItems={this.state.hintItems} addHandler={this.handleToAddHintItem} />
+                            </tbody>
+                        </table>
                         <div>
                             <input type="submit" value="save" />
                         </div>
@@ -195,51 +193,80 @@ class Simple extends React.Component {
 
 function DateView(props) {
     return (
-        <div>
-            <label> Date </label>
-            <input type="date" value={props.value} onChange={props.handler} required />
-        </div>
+        <tr className="form-item-container">
+            <td className="form-item-input-title">
+                <label> Date </label>
+            </td>
+            <td className="form-item-input">
+                <input type="date" value={props.value} onChange={props.handler} required />
+            </td>
+        </tr>
     );
 }
 
 function Quiz(props) {
     return (
-        <div>
-            <label> Quiz </label>
-            <input type="text" value={props.value} onChange={props.handler} required />
-        </div>
+        <tr className="form-item-container">
+            <td className="form-item-input-title">
+                <label> Quiz </label>
+            </td>
+            <td className="form-item-input">
+                <textarea 
+                    rows="5"
+                    cols="130"
+                    onChange={props.handler}
+                    value={props.value}
+                    required />
+            </td>
+        </tr>
     );
 }
 
 function Answer(props) {
     return (
-        <div>
-            <label> Answer </label>
-            <input type="text" value={props.value} onChange={props.handler} required />
-        </div>
+        <tr className="form-item-container">
+            <td className="form-item-input-title">
+                <label> Answer </label>
+            </td>
+            <td className="form-item-input">
+                <textarea
+                    rows="5"
+                    cols="130"
+                    onChange={props.handler}
+                    value={props.value}
+                    required />
+            </td>
+        </tr>
     );
 }
 
 function Hint(props) {
     return (
-        <div>
-            <label> Hint </label>
-            <div>
+        <tr className="form-item-container">
+            <td className="form-item-input-title">
+                <label> Hint </label>
+            </td>
+            <td className="form-item-input">
                 {props.hintItems}
                 <input type="button" value="+" onClick={props.addHandler} />
-            </div>
-        </div>
+            </td>
+        </tr>
     );
 }
 
-
 function HintItem(props) {
     return (
-        <div>
-            <input type="text" value={props.value} onChange={props.writeHandler} required />
+        <div className="hint-item-container">
+            <input 
+                className="hint-item-write-box" 
+                type="text" 
+                maxLength="20"
+                value={props.value} 
+                onChange={props.writeHandler} required />
             <input type="button" value="x" onClick={props.deleteHandler} />
         </div>
     );
 }
+
 const routedSimple = withRouter(Simple); 
 export { routedSimple as Simple };
