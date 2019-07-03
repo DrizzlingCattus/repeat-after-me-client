@@ -47,7 +47,7 @@ function makePathlikeString(initString) {
 
 // used by client request to server
 const ENV = {
-    SERVER_URL: 'http://stenrine.com:8080'
+    SERVER_URL: 'http://stenrine.com'
 };
 
 const SERVER_PREFIX = 'api/repeat-after-me';

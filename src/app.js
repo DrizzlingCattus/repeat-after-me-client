@@ -5,10 +5,9 @@ import { ROUTE } from './env.js';
 import { Login } from './login.js';
 import './style/main.css';
 
-import { Make } from './make.js';
 import { Solve } from './solve.js';
 const test = {
-    isTest: true,
+    isTest: false,
     path: `${ROUTE.SOLVE}`, 
     component: Solve 
 };
@@ -18,7 +17,7 @@ const App = () => {
         <Router>
             <div>
                 <Switch>
-                    <Route exact path="/" component={AppInner} />
+                    <Route exact path={`${ROUTE}`} component={AppInner} />
                     <Route exact path={`${ROUTE.LOGIN}`} component={Login} />
                     <TestRoute />
                 </Switch>
