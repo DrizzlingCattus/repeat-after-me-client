@@ -8,12 +8,12 @@ import util from './util.js';
  * ex)
  * let HELLO = makePathlikeString('hello')
  * HELLO.WORLD = '/world';
- * 
+ *
  * // 'hello/world'
  * console.log(HELLO.WORLD);
- * 
+ *
  * // 'hello'
- * console.log(HELLO); 
+ * console.log(HELLO);
  * @param {String} initString prefix string for next prop string
  * @returns {Proxy Object} get, set handler proxy for attach prop string sequencly
  */
@@ -24,11 +24,11 @@ function makePathlikeString(initString) {
 
     const self = {};
     const pathValueAccessor = '__SELF';
-    self[pathValueAccessor] = initString; 
+    self[pathValueAccessor] = initString;
     self.toString = () => {
         return self[pathValueAccessor];
     };
-    
+
     self.attach = (key, pathString) => {
         if(key != key.toUpperCase()) {
             throw Error('path like string\'s prop MUST BE CAPITAL letter');
@@ -46,23 +46,36 @@ function makePathlikeString(initString) {
 
 
 // used by client request to server
-const ENV = {
-    SERVER_URL: 'https://stenrine.com'
-};
+//const ENV = {
+//    SERVER_URL: 'https://stenrine.com'
+//};
+//
+//const SERVER_PREFIX = 'api/repeat-after-me';
+//const SERVER_URL_WITH_PREFIX = `${ENV.SERVER_URL}/${SERVER_PREFIX}`
+//
+//ENV.GET_TOKEN_URL = `${SERVER_URL_WITH_PREFIX}/login`;
+//
+//// !) Auth & Verify terminology usage mix
+//ENV.VERIFY_LOGIN_URL = `${SERVER_URL_WITH_PREFIX}/login/auth`;
+//
+//ENV.MAKE_SIMPLE_QUIZ_URL = `${SERVER_URL_WITH_PREFIX}/simple/quizs`;
+//
+//ENV.GET_SIMPLE_QUIZ_FROM_DATE_URL = `${SERVER_URL_WITH_PREFIX}/simple/quizs/date`;
+//
+//ENV.GET_COMPLEX_QUIZ_FROM_DATE_URL = `${SERVER_URL_WITH_PREFIX}/complex/quizs/date`;
 
-const SERVER_PREFIX = 'api/repeat-after-me';
-const SERVER_URL_WITH_PREFIX = `${ENV.SERVER_URL}/${SERVER_PREFIX}`
+const ENV = makePathlikeString('https://stenrine.com/api/repeat-after-me');
 
-ENV.GET_TOKEN_URL = `${SERVER_URL_WITH_PREFIX}/login`;
+ENV.attach('LOGIN', '/login');
+ENV.LOGIN.attach('AUTH', '/auth');
 
-// !) Auth & Verify terminology usage mix
-ENV.VERIFY_LOGIN_URL = `${SERVER_URL_WITH_PREFIX}/login/auth`;
+ENV.attach('SIMPLE', '/simple');
+ENV.SIMPLE.attach('QUIZS', '/quizs');
+ENV.SIMPLE.QUIZS.attach('DATE', '/date');
 
-ENV.MAKE_SIMPLE_QUIZ_URL = `${SERVER_URL_WITH_PREFIX}/simple/quizs`;
-
-ENV.GET_SIMPLE_QUIZ_FROM_DATE_URL = `${SERVER_URL_WITH_PREFIX}/simple/quizs/date`;
-
-ENV.GET_COMPLEX_QUIZ_FROM_DATE_URL = `${SERVER_URL_WITH_PREFIX}/complex/quizs/date`;
+ENV.attach('COMPLEX', '/complex');
+ENV.COMPLEX.attach('QUIZS', '/quizs');
+ENV.COMPLEX.QUIZS.attach('DATE', '/date');
 
 
 // used by client router
@@ -82,7 +95,7 @@ ROUTE.attach('SOLVE_QUIZ', '/solve_quiz');
 
 ROUTE.attach('TEST', '/test');
 
-export { 
-    ENV, 
+export {
+    ENV,
     ROUTE
 };

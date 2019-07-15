@@ -60,7 +60,7 @@ class SolveInner extends React.Component {
         let endDate = this.state.endDate;
         const options = {
             method: 'GET',
-            url: ENV.GET_SIMPLE_QUIZ_FROM_DATE_URL + `/${startDate}/${endDate}`,
+            url: `${ENV.SIMPLE.QUIZS.DATE}/${startDate}/${endDate}`,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -145,14 +145,14 @@ class SolveInner extends React.Component {
         }
         if(this.state.isSubmitted) {
             return (
-                <Redirect 
-                    from={`${ROUTE.SOLVE}`} 
+                <Redirect
+                    from={`${ROUTE.SOLVE}`}
                     to={{
                         pathname: `${ROUTE.SOLVE_QUIZ}`,
                         state: {
                             searchResult: this.state.searchResult.slice()
                         }
-                    }} 
+                    }}
                 />
             );
         }
@@ -163,13 +163,13 @@ class SolveInner extends React.Component {
                     <Link to={`${ROUTE.HOME}`} onClick={this.gotoHome} > Home </Link>
                 </div>
                 <SolveStatus />
-                <QuizFilter 
+                <QuizFilter
                     startDate={this.state.startDate}
                     endDate={this.state.endDate}
                     quizTypeHandler={this.handleFilterQuizType}
                     dateHandler={this.handleFilterDate}
                     keywordHandler={this.handleFilterKeyword}
-                    submitHandler={this.handleFilterSubmit} 
+                    submitHandler={this.handleFilterSubmit}
                 />
             </div>
         );

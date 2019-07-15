@@ -47,7 +47,7 @@ class Simple extends React.Component {
         this.handleToDeleteHintItem = this.handleToDeleteHintItem.bind(this);
         this.handleToAddHintItem = this.handleToAddHintItem.bind(this);
     }
-    
+
     initState(v) {
         const curr = new Date();
         const initedObj = {
@@ -71,7 +71,7 @@ class Simple extends React.Component {
 
         const options = {
             method: 'POST',
-            url: ENV.MAKE_SIMPLE_QUIZ_URL,
+            url: `${ENV.SIMPLE.QUIZS}`,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -80,20 +80,20 @@ class Simple extends React.Component {
                 date: this.state.date,
                 quiz: this.state.quiz,
                 answer: this.state.answer,
-                hints: trimmedHint 
+                hints: trimmedHint
             }
         };
         axios(options).then((res) => {
             if(res.data.status == "success") {
                 console.log("success to save simple quiz");
                 // refresh simple child view
-                this.initState({ 
+                this.initState({
                     message: "Save complete!"
                 });
             }else {
                 console.log("fail to save simple quiz");
-                this.initState({ 
-                    message: "Fail to save ..." 
+                this.initState({
+                    message: "Fail to save ..."
                 });
             }
         });
@@ -123,13 +123,13 @@ class Simple extends React.Component {
         // if you want to access event object aync way,
         // you need to call event.persist()
         e.persist();
-        // setState call callback function - async 
+        // setState call callback function - async
         this.setState((state) => {
             const hints = localM.changedArray(state.hints, index, e.target.value);
             return {
                 hints
             };
-        });  
+        });
     }
 
     handleToDeleteHintItem(index, e) {
@@ -150,7 +150,7 @@ class Simple extends React.Component {
             const index = state.hintItemCounter;
             // directly changing array is forbidden in react
             const list = state.hintItems.concat(
-                <HintItem 
+                <HintItem
                     key={keyPrefix + index}
                     index={index}
                     value={this.state.hints[index]}
@@ -211,7 +211,7 @@ function Quiz(props) {
                 <label> Quiz </label>
             </td>
             <td className="form-item-input">
-                <textarea 
+                <textarea
                     rows="5"
                     cols="130"
                     onChange={props.handler}
@@ -257,16 +257,16 @@ function Hint(props) {
 function HintItem(props) {
     return (
         <div className="hint-item-container">
-            <input 
-                className="hint-item-write-box" 
-                type="text" 
+            <input
+                className="hint-item-write-box"
+                type="text"
                 maxLength="20"
-                value={props.value} 
+                value={props.value}
                 onChange={props.writeHandler} required />
             <input type="button" value="x" onClick={props.deleteHandler} />
         </div>
     );
 }
 
-const routedSimple = withRouter(Simple); 
+const routedSimple = withRouter(Simple);
 export { routedSimple as Simple };

@@ -15,7 +15,7 @@ const auth = ( () => {
             console.log("calling auth.verity");
             const options = {
                 method: 'GET',
-                url: ENV.VERIFY_LOGIN_URL,
+                url: `${ENV.LOGIN.AUTH}`,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const auth = ( () => {
                 } else {
                     console.log('fail to verify');
                 }
-                status = !!res.data.status; 
+                status = !!res.data.status;
             });
         },
 
@@ -73,7 +73,7 @@ class LoginInner extends React.Component {
         e.preventDefault();
         const options = {
             method: 'POST',
-            url: ENV.GET_TOKEN_URL,
+            url: `${ENV.LOGIN}`,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 
-import { ENV, ROUTE } from './env.js';
+import { ROUTE } from './env.js';
 import { Solve } from './solve.js';
 
 import "./style/solveQuiz.css";
@@ -17,8 +17,8 @@ class SolveQuiz extends React.Component {
             <Router>
                 <Switch>
                     <Route exact path={`${ROUTE.SOLVE}`} component={Solve} />
-                    <Route 
-                        exact path={`${ROUTE.SOLVE_QUIZ}`} 
+                    <Route
+                        exact path={`${ROUTE.SOLVE_QUIZ}`}
                         render={
                             (props) => {
                                 return <SolveQuizInner quizs={props.location.state.searchResult} />
@@ -150,8 +150,8 @@ class QuizDescription extends React.Component {
         return (
             <tr>
                 <td className="solving-item-title"> Quiz </td>
-                <td className="solving-item-content"> 
-                    <textarea 
+                <td className="solving-item-content">
+                    <textarea
                         row="5"
                         cols="130"
                         value={this.props.description}
@@ -205,8 +205,8 @@ class QuizAnswer extends React.Component {
         return (
             <tr>
                 <td className="solving-item-title"> Answer </td>
-                <td className="solving-item-content"> 
-                    <textarea 
+                <td className="solving-item-content">
+                    <textarea
                         rows="5"
                         cols="130"
                         value={this.props.answer}
@@ -243,8 +243,8 @@ class ShowHints extends React.Component {
     render() {
         return (
             <div className="solving-item-button-container">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     autoComplete="off"
                     disabled={this.props.isClicked}
                     onClick={this.props.showHintHandler}>
