@@ -43,13 +43,16 @@ class SolveInner extends React.Component {
             startDate: today,
             endDate: today,
             isSubmitted: false,
-            searchResult: []
+            searchResult: [],
+            isGotoHome: false
         };
 
         this.handleFilterQuizType = this.handleFilterQuizType.bind(this);
         this.handleFilterDate = this.handleFilterDate.bind(this);
         this.handleFilterKeyword = this.handleFilterKeyword.bind(this);
         this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
+
+        this.gotoHome = this.gotoHome.bind(this);
     }
 
     requestSimpleQuiz() {
@@ -125,8 +128,21 @@ class SolveInner extends React.Component {
         }
     }
 
+    gotoHome() {
+        this.setState({
+            isGotoHome: true
+        });
+    }
 
     render() {
+        if(this.state.isGotoHome) {
+            return (
+                <Redirect
+                    from={`${ROUTE.SOLVE}`}
+                    to={`${ROUTE.HOME}`}
+                />
+            );
+        }
         if(this.state.isSubmitted) {
             return (
                 <Redirect 
@@ -143,6 +159,9 @@ class SolveInner extends React.Component {
 
         return(
             <div className="container-full-width">
+                <div>
+                    <Link to={`${ROUTE.HOME}`} onClick={this.gotoHome} > Home </Link>
+                </div>
                 <SolveStatus />
                 <QuizFilter 
                     startDate={this.state.startDate}
